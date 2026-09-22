@@ -159,16 +159,26 @@ RunModel_CemaNeigeGR4J_Glacier <- function(InputsModel, RunOptions, Param) {
   TotGlacMelt   <- rep(0, length(IndPeriod1))
   active_layers <- which(RunOptions$RelIce > 0) # Layer with glacier
 
-  # Loop over the active layers to calculate ice melt
+  # Loop over the active layers to calculate ice melt (time loop done in Fortran)
   for (layer in active_layers) {
 
     Temp      <- InputsModel$LayerTemp[[PLayer_names[layer]]][IndPeriod1]
     SWE_Layer <- CemaNeigeLayers_long[[sprintf("Layer%02i", layer)]]$SnowPack
 
-    # Ice melt for each time step based on temperature and SWE (no melting when SWE > SWE_th or Temp <= Tm)
-    Mice <- ifelse(SWE_Layer <= SWE_th & Temp > Tm, (Temp - Tm) * Fi, 0)
+    GLACIER_RESULTS <- .Fortran("frun_glacier", PACKAGE = "airGR",
+                                ## inputs
+                                LInputs = LInputSeries,        ### length of input and output series
+                                InputsTemp = as.double(Temp),  ### input series of air mean temperature [degC]
+                                InputsSWE = as.double(SWE_Layer), ### input series of snow water equivalent [mm]
+                                Fi = as.double(Fi),            ### degree-day ice melt factor [mm/degC/time step]
+                                Tm = as.double(Tm),            ### ice melt threshold temperature [degC]
+                                SWEth = as.double(SWE_th),     ### SWE threshold below which ice melt can occur [mm]
+                                RelIce = as.double(RunOptions$RelIce[layer]), ### relative ice-covered area of the layer [-]
+                                ## outputs
+                                OutputsIceMelt = double(LInputSeries) ### ice melt contribution of the layer [mm/time step]
+    )
 
-    TotGlacMelt <- TotGlacMelt + Mice * RunOptions$RelIce[layer]
+    TotGlacMelt <- TotGlacMelt + GLACIER_RESULTS$OutputsIceMelt
   }
 
   # Add the ice melt to the snow and rain
