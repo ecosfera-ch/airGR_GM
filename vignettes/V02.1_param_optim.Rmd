@@ -209,6 +209,72 @@ resGLOB
 <!-- This is an expected result because the response surface for quadratic performance criteria of the **GR4J** model is generally sufficiently well defined in the transformed parameter space to allow using a local optimization strategy instead of a more time consuming global optimization strategy. -->
 
 
+# Monte Carlo calibration with a Latin Hypercube sample
+
+In addition to the `Calibration_Michel()` local/global search algorithm and the external optimisation packages presented above, **airGR** also provides a built-in Monte Carlo calibration method, `Calibration_MonteCarlo()`, which relies only on base R and does not require any additional package.
+
+Unlike the strategies illustrated so far, this method works directly in the "real" (untransformed) parameter space: the user only has to provide a lower and an upper bound (`ParamMin`/`ParamMax`) for each parameter of the hydrological model. A sample of parameter sets is then drawn using a Latin Hypercube design (`CreateParamSet_LHS()`), which spreads the sampled points more evenly over the parameter space than a simple uniform random draw would, while remaining much cheaper to compute than a full factorial grid. The model is run and the objective function evaluated for every sampled parameter set, and the parameter set giving the best criterion value is returned.
+
+Because no local refinement is performed after the sampling step, `Calibration_MonteCarlo()` is best used either as a quick, dependency-free calibration method, or as a way to explore the response surface and get a first idea of parameter sensitivity and predictive uncertainty (e.g. in a GLUE-like framework), based on the full sample of tested parameter sets and criterion values returned in `$HistParamR` and `$HistCrit`.
+
+We first prepare the `InputsModel`, `RunOptions` and `InputsCrit` objects, as in the [Get Started](V01_get_started.html) vignette:
+
+```{r paramMC, warning=FALSE, results='hide'}
+data(L0123001)
+InputsModel <- airGR::CreateInputsModel(FUN_MOD = RunModel_GR4J, DatesR = BasinObs$DatesR,
+                                        Precip = BasinObs$P, PotEvap = BasinObs$E)
+Ind_Run <- seq(which(format(BasinObs$DatesR, format = "%Y-%m-%d") == "1990-01-01"),
+               which(format(BasinObs$DatesR, format = "%Y-%m-%d") == "1999-12-31"))
+RunOptions <- airGR::CreateRunOptions(FUN_MOD = RunModel_GR4J, InputsModel = InputsModel,
+                                      IndPeriod_Run = Ind_Run)
+InputsCrit <- airGR::CreateInputsCrit(FUN_CRIT = ErrorCrit_RMSE, InputsModel = InputsModel,
+                                      RunOptions = RunOptions, Obs = BasinObs$Qmm[Ind_Run])
+```
+
+We then define wide, physically plausible bounds for the four **GR4J** parameters, directly in their natural units (mm, mm/d, mm, d):
+
+```{r boundsMC, warning=FALSE, results='hide'}
+ParamMinGR4J <- c(X1 =    1, X2 = -5, X3 =   1, X4 = 0.5)
+ParamMaxGR4J <- c(X1 = 1500, X2 =  5, X3 = 500, X4 = 10)
+```
+
+The Monte Carlo calibration is then run with, for example, 2000 Latin Hypercube samples:
+
+```{r calibMC, warning=FALSE}
+OutputsCalibMC <- Calibration_MonteCarlo(InputsModel = InputsModel, RunOptions = RunOptions,
+                                         InputsCrit = InputsCrit, FUN_MOD = RunModel_GR4J,
+                                         ParamMin = ParamMinGR4J, ParamMax = ParamMaxGR4J,
+                                         NSamples = 2000, Seed = 321, verbose = FALSE)
+OutputsCalibMC$ParamFinalR
+OutputsCalibMC$CritFinal
+```
+
+As with other Monte Carlo/GLUE-type approaches, it is instructive to look at the full sample of tested parameter sets against their corresponding criterion value ("dotty plots"), which gives a first indication of parameter sensitivity and of the shape of the response surface.
+
+```{r dottyMC, fig.width=8, fig.height=6, warning=FALSE, message=FALSE}
+dfMC <- do.call(rbind, lapply(colnames(OutputsCalibMC$HistParamR), function(iParam) {
+  data.frame(Param = iParam, Value = OutputsCalibMC$HistParamR[, iParam],
+             RMSE = OutputsCalibMC$HistCrit)
+}))
+
+ggplot(dfMC, aes(x = Value, y = RMSE)) +
+  geom_point(alpha = 0.4, size = 0.8) +
+  facet_wrap(~ Param, scales = "free_x") +
+  ylab("RMSE [mm/d]") +
+  theme_bw()
+```
+
+The parameter set giving the lowest RMSE among the sampled points can then be used to run the model, exactly as with any other calibration method:
+
+```{r simMC, fig.width=8, fig.height=5, warning=FALSE}
+OutputsModelMC <- RunModel_GR4J(InputsModel = InputsModel, RunOptions = RunOptions,
+                                Param = OutputsCalibMC$ParamFinalR)
+plot(OutputsModelMC, Qobs = BasinObs$Qmm[Ind_Run])
+```
+
+The precision of the result depends on the number of samples used: increasing `NSamples` improves the coverage of the parameter space, at the cost of additional model runs, but will generally not reach the same precision as the steepest descent local search of `Calibration_Michel()` for a comparable number of model runs, since no local refinement is performed around the best sampled point.
+
+
 # Multiobjective optimization
 
 Multiobjective optimization is used to explore possible trade-offs between different performances criteria.
