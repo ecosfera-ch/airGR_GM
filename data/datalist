@@ -1,6 +1,7 @@
+exampleSimPlot: simCNGR4J simGR4J
 L0123001: BasinInfo BasinObs
 L0123002: BasinInfo BasinObs
 L0123003: BasinInfo BasinObs
+lapserateP
 Param_Sets_GR4J
 X0310010: BasinInfo BasinObs
-exampleSimPlot: simCNGR4J simGR4J

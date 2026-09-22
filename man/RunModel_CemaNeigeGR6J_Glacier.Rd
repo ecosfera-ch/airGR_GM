@@ -94,16 +94,12 @@ Glacier melt in the elevation layers is given as liquid input into the GR6J mode
   \right.}{M_i = {F_i*(T-T_m)*A_i   if SWE ≥ SWE_th  and T ≥ T_m
 0                                   if SWE < SWE_th  and T < T_m }}
 
-\cr
-\cr
 \if{html}{\figure{diagramGR6JGlacier-EN.png}{options: width="80\%" alt="Figure: diagramGR66JGlacier-EN.png"}}
 \if{latex}{\figure{diagramGR6JGlacier-EN.pdf}{options: width=6cm}}
 
 The choice of the CemaNeige version is explained in \code{\link{CreateRunOptions}}. \cr
 For further details on the model, see the references section. \cr
 For further details on the argument structures and initialisation options, see \code{\link{CreateRunOptions}}.
-\cr
-\cr
 
 }
 

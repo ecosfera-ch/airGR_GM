@@ -19,7 +19,8 @@ CreateRunOptions(FUN_MOD, InputsModel,
                  IniStates = NULL, IniResLevels = NULL, Imax = NULL,
                  Outputs_Cal = NULL, Outputs_Sim = "all",
                  MeanAnSolidPrecip = NULL, IsHyst = FALSE,
-                 warnings = TRUE, verbose = TRUE)
+                 warnings = TRUE, verbose = TRUE,
+                 RelIce = NULL)
 }
 
 

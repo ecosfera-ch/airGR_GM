@@ -152,7 +152,7 @@ Calibration_Michel <- function(InputsModel,
     }
     ##Model_run
     Param <- CandidatesParamR[iNew, ]
-    OutputsModel <- RunModel(InputsModel, RunOptions, Param, FUN_MOD = FUN_MOD)
+    OutputsModel <- RunModel(InputsModel, RunOptions, Param, FUN_MOD = FUN_MOD, ...)
 
     ##Calibration_criterion_computation
     OutputsCrit <- ErrorCrit(InputsCrit, OutputsModel, verbose = FALSE)
@@ -301,7 +301,7 @@ Calibration_Michel <- function(InputsModel,
     for (iNew in 1:nrow(CandidatesParamR)) {
       ##Model_run
       Param <- CandidatesParamR[iNew, ]
-      OutputsModel <- RunModel(InputsModel, RunOptions, Param, FUN_MOD = FUN_MOD)
+      OutputsModel <- RunModel(InputsModel, RunOptions, Param, FUN_MOD = FUN_MOD, ...)
       ##Calibration_criterion_computation
       OutputsCrit <- ErrorCrit(InputsCrit, OutputsModel, verbose = FALSE)
       if (!is.na(OutputsCrit$CritValue)) {
@@ -362,7 +362,7 @@ Calibration_Michel <- function(InputsModel,
       CandidatesParamR <- FUN_TRANSFO(CandidatesParamT, "TR")
       ##Model_run
       Param <- CandidatesParamR[iNew, ]
-      OutputsModel <- RunModel(InputsModel, RunOptions, Param, FUN_MOD = FUN_MOD)
+      OutputsModel <- RunModel(InputsModel, RunOptions, Param, FUN_MOD = FUN_MOD, ...)
       ##Calibration_criterion_computation
       OutputsCrit <- ErrorCrit(InputsCrit, OutputsModel, verbose = FALSE)
       if (OutputsCrit$CritValue * OutputsCrit$Multiplier < CritOptim) {
