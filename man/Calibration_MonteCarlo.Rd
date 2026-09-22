@@ -79,7 +79,7 @@ the parameter space is covered, at the cost of additional model runs.
 
 
 \examples{
-library(airGR)
+library(airGRalpine)
 
 ## loading catchment data
 data(L0123001)

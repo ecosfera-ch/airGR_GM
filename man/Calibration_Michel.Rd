@@ -79,7 +79,7 @@ The calibration algorithm stops when the search step becomes smaller than a pred
 
 
 \examples{
-library(airGR)
+library(airGRalpine)
 
 ## loading catchment data
 data(L0123001)

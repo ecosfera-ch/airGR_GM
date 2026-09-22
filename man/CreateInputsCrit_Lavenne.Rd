@@ -77,7 +77,7 @@ The parameters \code{FUN_CRIT}, \code{Obs}, \code{VarObs}, \code{BoolCrit}, \cod
 
 
 \examples{
-library(airGR)
+library(airGRalpine)
 
 ## loading catchment data
 data(L0123001)

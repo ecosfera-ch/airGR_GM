@@ -129,7 +129,7 @@ If \code{IsHyst = TRUE}, the CemaNeige version from Riboust et al. (2019) is use
 
 
 \examples{
-library(airGR)
+library(airGRalpine)
 
 ## loading catchment data
 data(L0123001)

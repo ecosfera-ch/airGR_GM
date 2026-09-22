@@ -194,9 +194,9 @@ devtools::install_github("hydrosolutions/airGR_GM")
 Load the library:
 
 ``` r
-library(airGR)
+library(airGRalpine)
 ```
-Please pay attention: the library is called `airGR` and not `airGR_GM`.
+Please pay attention: the installed R package is called `airGRalpine`, not `airGR_GM` (the name of this GitHub repository) nor `airGR` (the original package this fork is based on).
 
 
 

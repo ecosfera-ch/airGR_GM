@@ -10,8 +10,8 @@ test_that("V01_get_started works", {
 test_that("V02.1_param_optim works", {
   skip_on_cran()
   rm(list = ls())
-  load(system.file("vignettesData/vignetteParamOptim.rda", package = "airGR"))
-  load(system.file("vignettesData/vignetteParamOptimCaramel.rda", package = "airGR"))
+  load(system.file("vignettesData/vignetteParamOptim.rda", package = "airGRalpine"))
+  load(system.file("vignettesData/vignetteParamOptimCaramel.rda", package = "airGRalpine"))
   rda_resGLOB <- resGLOB
   rda_resPORT <- resPORT
   rda_optMO <- optMO
@@ -24,7 +24,7 @@ test_that("V02.1_param_optim works", {
 test_that("V02.2_param_mcmc works", {
   skip_on_cran()
   rm(list = ls())
-  load(system.file("vignettesData/vignetteParamMCMC.rda", package = "airGR"))
+  load(system.file("vignettesData/vignetteParamMCMC.rda", package = "airGRalpine"))
   rda_gelRub <- gelRub
   rda_multDRAM <- multDRAM
   expect_true(RunVignetteChunks("V02.2_param_mcmc"))
@@ -41,7 +41,7 @@ test_that("V03_param_sets_GR4J works", {
 test_that("V04_cemaneige_hysteresis works", {
   skip_on_cran()
   rm(list = ls())
-  load(system.file("vignettesData/vignetteCNHysteresis.rda", package = "airGR"))
+  load(system.file("vignettesData/vignetteCNHysteresis.rda", package = "airGRalpine"))
   rda_OutputsCrit_Cal <- OutputsCrit_Cal
   rda_OutputsCrit_Cal_NoHyst <- OutputsCrit_Cal_NoHyst
   rda_OutputsCrit_Val <- OutputsCrit_Val

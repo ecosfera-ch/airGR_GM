@@ -102,7 +102,7 @@ Calculation of a composite criterion (e.g. the average between NSE computed on d
 
 
 \examples{
-library(airGR)
+library(airGRalpine)
 
 ## loading catchment data
 data(L0123001)

@@ -28,7 +28,7 @@ Example precipitation lapse rate (elevation gradient) coefficients for a small s
 
 
 \examples{
-library(airGR)
+library(airGRalpine)
 
 ## loading the precipitation lapse rate example values
 data(lapserateP)

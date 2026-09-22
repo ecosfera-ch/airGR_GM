@@ -76,7 +76,7 @@ RunModel_CemaNeige <- function(InputsModel, RunOptions, Param) {
     } else {
       StateStartCemaNeige <- RunOptions$IniStates[(7 + 20*time_mult + 40*time_mult) + c(iLayer, iLayer+NLayers, iLayer+2*NLayers, iLayer+3*NLayers)]
     }
-    RESULTS <- .Fortran("frun_cemaneige", PACKAGE = "airGR",
+    RESULTS <- .Fortran("frun_cemaneige", PACKAGE = "airGRalpine",
                         ## inputs
                         LInputs = as.integer(length(IndPeriod1)),                                       ### length of input and output series
                         InputsPrecip = InputsModel$LayerPrecip[[iLayer]][IndPeriod1],                   ### input series of total precipitation [mm/time step]

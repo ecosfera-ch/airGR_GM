@@ -29,7 +29,7 @@ quit2 <- function(status = 1, ...) {
 ###############
 
 library(testthat)
-library(airGR)
+library(airGRalpine)
 
 scheduled_tests <- list.files(
   path = "tests/testthat",

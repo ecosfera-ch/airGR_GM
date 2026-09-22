@@ -104,7 +104,7 @@ RunModel_CemaNeigeGR6J_Glacier <- function(InputsModel, RunOptions, Param) {
       } else {
         StateStartCemaNeige <- RunOptions$IniStates[(7 + 20 + 40) + c(iLayer, iLayer+NLayers, iLayer+2*NLayers, iLayer+3*NLayers)]
       }
-      RESULTS <- .Fortran("frun_cemaneige", PACKAGE = "airGR",
+      RESULTS <- .Fortran("frun_cemaneige", PACKAGE = "airGRalpine",
                           ## inputs
                           LInputs = LInputSeries,                                                         ### length of input and output series
                           InputsPrecip = InputsModel$LayerPrecip[[iLayer]][IndPeriod1],                   ### input series of total precipitation [mm/d]
@@ -170,7 +170,7 @@ RunModel_CemaNeigeGR6J_Glacier <- function(InputsModel, RunOptions, Param) {
     Temp      <- InputsModel$LayerTemp[[PLayer_names[layer]]][IndPeriod1]
     SWE_Layer <- CemaNeigeLayers_long[[sprintf("Layer%02i", layer)]]$SnowPack
 
-    GLACIER_RESULTS <- .Fortran("frun_glacier", PACKAGE = "airGR",
+    GLACIER_RESULTS <- .Fortran("frun_glacier", PACKAGE = "airGRalpine",
                                 ## inputs
                                 LInputs = LInputSeries,        ### length of input and output series
                                 InputsTemp = as.double(Temp),  ### input series of air mean temperature [degC]
@@ -207,7 +207,7 @@ RunModel_CemaNeigeGR6J_Glacier <- function(InputsModel, RunOptions, Param) {
 
 
   ## Call GR model Fortan
-  RESULTS <- .Fortran("frun_gr6j", PACKAGE = "airGR",
+  RESULTS <- .Fortran("frun_gr6j", PACKAGE = "airGRalpine",
                       ## inputs
                       LInputs = LInputSeries,                          ### length of input and output series
                       InputsPrecip = CatchMeltAndPliq,                 ### input series of total precipitation [mm/d]

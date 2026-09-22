@@ -60,7 +60,7 @@ The use of the \code{PEdaily_Oudin} corresponds to the first case of the use of 
 }
 
 \examples{
-library(airGR)
+library(airGRalpine)
 data(L0123001)
 PotEvap <- PE_Oudin(JD = as.POSIXlt(BasinObs$DatesR)$yday + 1,
                     Temp = BasinObs$T,

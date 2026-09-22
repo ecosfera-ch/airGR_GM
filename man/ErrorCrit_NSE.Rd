@@ -49,7 +49,7 @@ the use of the function for model calibration: the product \eqn{CritValue \times
 
 
 \examples{
-library(airGR)
+library(airGRalpine)
 
 ## loading catchment data
 data(L0123001)

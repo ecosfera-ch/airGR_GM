@@ -11,8 +11,8 @@ vignette: >
 
 
 ```{r, warning=FALSE, include=FALSE}
-library(airGR)
-load(system.file("vignettesData/vignetteCNHysteresis.rda", package = "airGR"))
+library(airGRalpine)
+load(system.file("vignettesData/vignetteCNHysteresis.rda", package = "airGRalpine"))
 ```
 
 

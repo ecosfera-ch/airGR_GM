@@ -10,7 +10,7 @@ vignette: >
 ---
 
 ```{r, include=FALSE, fig.keep='none', results='hide'}
-library(airGR)
+library(airGRalpine)
 options(digits = 3)
 ```
 
@@ -37,7 +37,7 @@ This comparison is based on the Kling-Gupta Efficiency computed on the root-squa
 ## Model description
 
 ```{r, warning=FALSE, include=FALSE}
-library(airGR)
+library(airGRalpine)
 options(digits = 3)
 ```
 

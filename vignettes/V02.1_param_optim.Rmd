@@ -11,7 +11,7 @@ vignette: >
 
 
 ```{r setup, warning=FALSE, include=FALSE, fig.keep='none', results='hide'}
-library(airGR)
+library(airGRalpine)
 library(DEoptim)
 # library(hydroPSO) # Needs R version >= 3.6 or latticeExtra <= 0.6-28 on R 3.5. Archived on 2023-10-16 as requires archived packages 'hydroTSM' and 'hydroGOF'.
 library(Rmalschains)
@@ -20,8 +20,8 @@ library(ggplot2)
 library(GGally)
 # source("airGR.R")
 set.seed(321)
-load(system.file("vignettesData/vignetteParamOptim.rda", package = "airGR"))
-load(system.file("vignettesData/vignetteParamOptimCaramel.rda", package = "airGR"))
+load(system.file("vignettesData/vignetteParamOptim.rda", package = "airGRalpine"))
+load(system.file("vignettesData/vignetteParamOptimCaramel.rda", package = "airGRalpine"))
 ```
 
 
@@ -48,7 +48,7 @@ example("Calibration_Michel")
 In order for the `RunModel_*()` functions to run faster during the parameter estimation process, it is recommended that the outputs contain only the simulated flows (see the `Outputs_Sim` argument in the `CreateRunOptions()` help page).
 
 ```{r RunOptions, results='hide', eval=FALSE}
-RunOptions <- airGR::CreateRunOptions(FUN_MOD = RunModel_GR4J, InputsModel = InputsModel,
+RunOptions <- airGRalpine::CreateRunOptions(FUN_MOD = RunModel_GR4J, InputsModel = InputsModel,
                                       IndPeriod_Run = Ind_Run,
                                       Outputs_Sim = "Qsim")
 ```
@@ -69,14 +69,14 @@ The change of the repository from the "real" parameter space to a "transformed" 
 ```{r OptimGR4J, warning=FALSE, results='hide', eval=FALSE}
 OptimGR4J <- function(ParamOptim) {
   ## Transformation of the parameter set to real space
-  RawParamOptim <- airGR::TransfoParam_GR4J(ParamIn = ParamOptim,
+  RawParamOptim <- airGRalpine::TransfoParam_GR4J(ParamIn = ParamOptim,
                                             Direction = "TR")
   ## Simulation given a parameter set
-  OutputsModel <- airGR::RunModel_GR4J(InputsModel = InputsModel,
+  OutputsModel <- airGRalpine::RunModel_GR4J(InputsModel = InputsModel,
                                        RunOptions = RunOptions,
                                        Param = RawParamOptim)
   ## Computation of the value of the performance criteria
-  OutputsCrit <- airGR::ErrorCrit_RMSE(InputsCrit = InputsCrit,
+  OutputsCrit <- airGRalpine::ErrorCrit_RMSE(InputsCrit = InputsCrit,
                                        OutputsModel = OutputsModel,
                                        verbose = FALSE)
   return(OutputsCrit$CritValue)
@@ -193,13 +193,13 @@ optMALS <- Rmalschains::malschains(fn = OptimGR4J,
 As it can be seen in the table below, the four additional optimization strategies tested lead to very close optima.
 
 ```{r resGLOB, warning=FALSE, echo=FALSE, eval=FALSE}
-resGLOB <- data.frame(Algo = c("airGR", "PORT", "DE", "PSO", "MA-LS"),
+resGLOB <- data.frame(Algo = c("airGRalpine", "PORT", "DE", "PSO", "MA-LS"),
                       round(rbind(
                         OutputsCalib$ParamFinalR,
-                        airGR::TransfoParam_GR4J(ParamIn = optPORT$par                    , Direction = "TR"),
-                        airGR::TransfoParam_GR4J(ParamIn = as.numeric(optDE$optim$bestmem), Direction = "TR"),
-                        airGR::TransfoParam_GR4J(ParamIn = as.numeric(optPSO$par)         , Direction = "TR"),
-                        airGR::TransfoParam_GR4J(ParamIn = optMALS$sol                    , Direction = "TR")),
+                        airGRalpine::TransfoParam_GR4J(ParamIn = optPORT$par                    , Direction = "TR"),
+                        airGRalpine::TransfoParam_GR4J(ParamIn = as.numeric(optDE$optim$bestmem), Direction = "TR"),
+                        airGRalpine::TransfoParam_GR4J(ParamIn = as.numeric(optPSO$par)         , Direction = "TR"),
+                        airGRalpine::TransfoParam_GR4J(ParamIn = optMALS$sol                    , Direction = "TR")),
                         digits = 3))
 ```
 ```{r, warning=FALSE, echo=FALSE}
@@ -221,13 +221,13 @@ We first prepare the `InputsModel`, `RunOptions` and `InputsCrit` objects, as in
 
 ```{r paramMC, warning=FALSE, results='hide'}
 data(L0123001)
-InputsModel <- airGR::CreateInputsModel(FUN_MOD = RunModel_GR4J, DatesR = BasinObs$DatesR,
+InputsModel <- airGRalpine::CreateInputsModel(FUN_MOD = RunModel_GR4J, DatesR = BasinObs$DatesR,
                                         Precip = BasinObs$P, PotEvap = BasinObs$E)
 Ind_Run <- seq(which(format(BasinObs$DatesR, format = "%Y-%m-%d") == "1990-01-01"),
                which(format(BasinObs$DatesR, format = "%Y-%m-%d") == "1999-12-31"))
-RunOptions <- airGR::CreateRunOptions(FUN_MOD = RunModel_GR4J, InputsModel = InputsModel,
+RunOptions <- airGRalpine::CreateRunOptions(FUN_MOD = RunModel_GR4J, InputsModel = InputsModel,
                                       IndPeriod_Run = Ind_Run)
-InputsCrit <- airGR::CreateInputsCrit(FUN_CRIT = ErrorCrit_RMSE, InputsModel = InputsModel,
+InputsCrit <- airGRalpine::CreateInputsCrit(FUN_CRIT = ErrorCrit_RMSE, InputsModel = InputsModel,
                                       RunOptions = RunOptions, Obs = BasinObs$Qmm[Ind_Run])
 ```
 
@@ -295,18 +295,18 @@ MOptimGR4J <- function(i) {
     ParamOptim <- x[i, ]
   }
   ## Transformation of the parameter set to real space
-  RawParamOptim <- airGR::TransfoParam_GR4J(ParamIn = ParamOptim,
+  RawParamOptim <- airGRalpine::TransfoParam_GR4J(ParamIn = ParamOptim,
                                             Direction = "TR")
   ## Simulation given a parameter set
-  OutputsModel <- airGR::RunModel_GR4J(InputsModel = InputsModel,
+  OutputsModel <- airGRalpine::RunModel_GR4J(InputsModel = InputsModel,
                                        RunOptions = RunOptions,
                                        Param = RawParamOptim)
   ## Computation of the value of the performance criteria
-  OutputsCrit1 <- airGR::ErrorCrit_KGE(InputsCrit = InputsCrit,
+  OutputsCrit1 <- airGRalpine::ErrorCrit_KGE(InputsCrit = InputsCrit,
                                        OutputsModel = OutputsModel,
                                        verbose = FALSE)
   ## Computation of the value of the performance criteria
-  OutputsCrit2 <- airGR::ErrorCrit_KGE(InputsCrit = InputsCrit_inv,
+  OutputsCrit2 <- airGRalpine::ErrorCrit_KGE(InputsCrit = InputsCrit_inv,
                                        OutputsModel = OutputsModel,
                                        verbose = FALSE)
   return(c(OutputsCrit1$CritValue, OutputsCrit2$CritValue))
@@ -347,7 +347,7 @@ The parameter sets can be viewed in the parameter space, illustrating different 
 
 ```{r fig.height=6, fig.width=6, message=FALSE, warning=FALSE}
 param_optMO <- apply(optMO$parameters, MARGIN = 1, FUN = function(x) {
-  airGR::TransfoParam_GR4J(x, Direction = "TR")
+  airGRalpine::TransfoParam_GR4J(x, Direction = "TR")
   })
 GGally::ggpairs(data.frame(t(param_optMO)), diag = NULL) + theme_bw()
 ```
@@ -355,7 +355,7 @@ GGally::ggpairs(data.frame(t(param_optMO)), diag = NULL) + theme_bw()
 ```{r fig.height=6, fig.width=12, message=FALSE, warning=FALSE}
 RunOptions$Outputs_Sim <- "Qsim"
 run_optMO <- apply(optMO$parameters, MARGIN = 1, FUN = function(x) {
-  airGR::RunModel_GR4J(InputsModel = InputsModel,
+  airGRalpine::RunModel_GR4J(InputsModel = InputsModel,
                        RunOptions = RunOptions,
                        Param = x)
   }$Qsim)

@@ -74,7 +74,7 @@ PE_Oudin <- function(JD, Temp,
       FI <- rep(FI, LInputs)
     }
 
-    RESULTS <- .Fortran("frun_pe_oudin", PACKAGE = "airGR",
+    RESULTS <- .Fortran("frun_pe_oudin", PACKAGE = "airGRalpine",
                         ##inputs
                         LInputs = LInputs,
                         InputsLAT = as.double(FI),

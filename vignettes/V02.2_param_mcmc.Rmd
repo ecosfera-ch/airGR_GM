@@ -11,12 +11,12 @@ vignette: >
 
 
 ```{r, include=FALSE, fig.keep='none', results='hide'}
-library(airGR)
+library(airGRalpine)
 library(coda)
 library(FME)
 library(ggmcmc)
 set.seed(123)
-load(system.file("vignettesData/vignetteParamMCMC.rda", package = "airGR"))
+load(system.file("vignettesData/vignetteParamMCMC.rda", package = "airGRalpine"))
 ```
 
 
@@ -39,7 +39,7 @@ example("Calibration_Michel")
 In order for the `RunModel_*()` functions to run faster during the parameter estimation process, it is recommended that the outputs contain only the simulated flows (see the `Outputs_Sim` argument in the `CreateRunOptions()` help page).
 
 ```{r, results='hide', eval=FALSE}
-RunOptions <- airGR::CreateRunOptions(FUN_MOD = RunModel_GR4J, InputsModel = InputsModel,
+RunOptions <- airGRalpine::CreateRunOptions(FUN_MOD = RunModel_GR4J, InputsModel = InputsModel,
                                       IndPeriod_Run = Ind_Run,
                                       Outputs_Sim = "Qsim")
 ```
@@ -68,10 +68,10 @@ Note that we do not use here any discharge transformation, although applying Box
 ```{r, results='hide', eval=FALSE}
 LogLikeGR4J <- function(ParamOptim) {
   ## Transformation to real space
-  RawParamOptim <- airGR::TransfoParam_GR4J(ParamIn = ParamOptim,
+  RawParamOptim <- airGRalpine::TransfoParam_GR4J(ParamIn = ParamOptim,
                                               Direction = "TR")
   ## Simulation given a parameter set
-  OutputsModel <- airGR::RunModel_GR4J(InputsModel = InputsModel,
+  OutputsModel <- airGRalpine::RunModel_GR4J(InputsModel = InputsModel,
                                        RunOptions = RunOptions,
                                        Param = RawParamOptim)
   ## Computation of the log-likelihood: N * log(SS)
@@ -137,7 +137,7 @@ Note that we rescale model parameter sets of the GR4J model from the transformed
 
 ```{r, results='hide', eval=FALSE}
 multDRAM <- coda::as.mcmc.list(lapply(mcmcDRAM, FUN = function(x) {
-  coda::as.mcmc(airGR::TransfoParam_GR4J(as.matrix(x$pars), Direction = "TR"))
+  coda::as.mcmc(airGRalpine::TransfoParam_GR4J(as.matrix(x$pars), Direction = "TR"))
   }))
 gelRub <- coda::gelman.diag(multDRAM, autoburnin = TRUE)$mpsrf
 ```

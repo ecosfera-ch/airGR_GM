@@ -95,7 +95,7 @@ See \code{\link{RunModel_GR5H}} to look at the diagram of the hydrological model
 
 \examples{
 \dontrun{
-library(airGR)
+library(airGRalpine)
 
 ## loading catchment data
 data(U2345030)

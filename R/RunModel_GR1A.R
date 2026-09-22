@@ -25,7 +25,7 @@ RunModel_GR1A <- function(InputsModel, RunOptions, Param) {
 
 
   ## Call GR model Fortan
-  RESULTS <- .Fortran("frun_gr1a", PACKAGE = "airGR",
+  RESULTS <- .Fortran("frun_gr1a", PACKAGE = "airGRalpine",
                       ## inputs
                       LInputs = LInputSeries,                             ### length of input and output series
                       InputsPrecip = InputsModel$Precip[IndPeriod1],      ### input series of total precipitation [mm/y]

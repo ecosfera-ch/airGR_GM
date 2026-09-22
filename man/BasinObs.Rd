@@ -54,7 +54,7 @@ Vidal, J.-P., Martin, E., Franchistéguy, L., Baillon, M. and Soubeyroux, J. (20
 
 
 \examples{
-library(airGR)
+library(airGRalpine)
 data(L0123001)
 str(BasinObs)
 }

@@ -34,7 +34,7 @@ Optimal Imax value [mm].
 
 
 \examples{
-library(airGR)
+library(airGRalpine)
 
 ## loading catchment data
 data(L0123003)

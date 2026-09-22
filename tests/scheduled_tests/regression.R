@@ -1,7 +1,7 @@
 # Helper functions for regression
 
 StoreStableExampleResults <- function(
-  package = "airGR",
+  package = "airGRalpine",
   path = file.path("tests/tmp", Sys.getenv("R_VERSION"), "stable"),
   ...) {
   install.packages(package, repos = "http://cran.r-project.org")
@@ -9,7 +9,7 @@ StoreStableExampleResults <- function(
 }
 
 StoreDevExampleResults <- function(
-  package = "airGR",
+  package = "airGRalpine",
   path = file.path("tests/tmp", Sys.getenv("R_VERSION"), "dev"),
   ...) {
   StoreExampleResults(package = package, path = path, ...)

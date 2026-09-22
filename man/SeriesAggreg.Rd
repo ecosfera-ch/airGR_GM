@@ -90,7 +90,7 @@ Warning: on the aggregated outputs, the dates correspond to the beginning of the
 
 
 \examples{
-library(airGR)
+library(airGRalpine)
 
 ## loading catchment data
 data(L0123002)

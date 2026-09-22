@@ -32,6 +32,6 @@ test_that("Names of InputsModel", {
 
 
 test_that("Names of OutputsModel", {
-  expect_equal(names(OutputsModel), names(airGR:::.ExtractOutputsModel(OutputsModel, 1:5)))
+  expect_equal(names(OutputsModel), names(airGRalpine:::.ExtractOutputsModel(OutputsModel, 1:5)))
 })
 

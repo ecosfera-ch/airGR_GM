@@ -70,7 +70,7 @@ RunModel_CemaNeigeGR5H <- function(InputsModel, RunOptions, Param) {
       } else {
         StateStartCemaNeige <- RunOptions$IniStates[(7 + 20*24 + 40*24) + c(iLayer, iLayer+NLayers, iLayer+2*NLayers, iLayer+3*NLayers)]
       }
-      RESULTS <- .Fortran("frun_cemaneige", PACKAGE = "airGR",
+      RESULTS <- .Fortran("frun_cemaneige", PACKAGE = "airGRalpine",
                           ## inputs
                           LInputs = LInputSeries,                                                         ### length of input and output series
                           InputsPrecip = InputsModel$LayerPrecip[[iLayer]][IndPeriod1],                   ### input series of total precipitation [mm/h]
@@ -134,7 +134,7 @@ RunModel_CemaNeigeGR5H <- function(InputsModel, RunOptions, Param) {
   }
 
   ## Call GR model Fortan
-  RESULTS <- .Fortran("frun_gr5h", PACKAGE = "airGR",
+  RESULTS <- .Fortran("frun_gr5h", PACKAGE = "airGRalpine",
                       ## inputs
                       LInputs = LInputSeries,                          ### length of input and output series
                       InputsPrecip = CatchMeltAndPliq,                 ### input series of total precipitation [mm/h]

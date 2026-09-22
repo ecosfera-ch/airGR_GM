@@ -62,7 +62,7 @@ The transformation functions proposed in airGR for calibrating the GR models res
 
 
 \examples{
-library(airGR)
+library(airGRalpine)
 
 ## --- generic function
 

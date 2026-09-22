@@ -42,7 +42,7 @@ column names are taken from \code{names(ParamMin)} when available
 
 
 \examples{
-library(airGR)
+library(airGRalpine)
 
 ParamMin <- c(X1 =    1, X2 = -5, X3 =   1, X4 = 0.5)
 ParamMax <- c(X1 = 1500, X2 =  5, X3 = 500, X4 = 10)

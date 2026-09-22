@@ -15,7 +15,7 @@ vignette: >
 ## Scope
 
 ```{r, warning=FALSE, include=FALSE}
-library(airGR)
+library(airGRalpine)
 options(digits = 3)
 ```
 

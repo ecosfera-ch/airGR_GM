@@ -1,19 +1,19 @@
-\name{airGR-package}
-\alias{airGR}
-\alias{airGR-package}
+\name{airGRalpine-package}
+\alias{airGRalpine}
+\alias{airGRalpine-package}
 \docType{package}
 \encoding{UTF-8}
-\title{\packageTitle{airGR}}
+\title{\packageTitle{airGRalpine}}
 
 
 \description{
-\packageDescription{airGR}
+\packageDescription{airGRalpine}
 Each model core is coded in Fortran to ensure low computational time. The other package functions (i.e. mainly the calibration algorithm and the computation of the efficiency criteria) are coded in R. \cr\cr
 
 
 ## --- Functions and objects
 
-The airGR package has been designed to fulfil two major requirements: facilitate the use by non-expert users and allow flexibility regarding the addition of external criteria, models or calibration algorithms. The names of the functions and their arguments were chosen to this end.
+The airGRalpine package has been designed to fulfil two major requirements: facilitate the use by non-expert users and allow flexibility regarding the addition of external criteria, models or calibration algorithms. The names of the functions and their arguments were chosen to this end.
 
 The package is mostly based on three families of functions:
 \itemize{
@@ -27,8 +27,8 @@ In order to limit the risk of mis-use and increase the flexibility of these main
 
 ## --- Models
 
-Seven hydrological models and one snow melt and accumulation model are implemented in airGR. The hydrological models can be applied either on a lumped way or on a semi-distributed way (on sub-catchments). The snow model can either be used alone or with the daily or hourly hydrological models. Naturally each hydrological model can also be used alone. \cr
-These models can be called within airGR using the following functions:
+Seven hydrological models and one snow melt and accumulation model are implemented in airGRalpine, based on the original airGR package, with an additional glacier ablation module. The hydrological models can be applied either on a lumped way or on a semi-distributed way (on sub-catchments). The snow model can either be used alone or with the daily or hourly hydrological models. Naturally each hydrological model can also be used alone. \cr
+These models can be called within airGRalpine using the following functions:
 \itemize{
   \item \code{\link{RunModel_GR4H}}: four-parameter hourly lumped hydrological model (Mathevet, 2005)
   \item \code{\link{RunModel_GR5H}}: five-parameter hourly lumped hydrological model (Ficchi, 2017; Ficchi \emph{et al.}, 2019)
@@ -43,11 +43,13 @@ These models can be called within airGR using the following functions:
   \item \code{\link{RunModel_CemaNeigeGR4J}}: combined use of GR4J and CemaNeige
   \item \code{\link{RunModel_CemaNeigeGR5J}}: combined use of GR5J and CemaNeige
   \item \code{\link{RunModel_CemaNeigeGR6J}}: combined use of GR6J and CemaNeige
+  \item \code{\link{RunModel_CemaNeigeGR4J_Glacier}}: combined use of GR4J, CemaNeige and the glacier ablation module
+  \item \code{\link{RunModel_CemaNeigeGR6J_Glacier}}: combined use of GR6J, CemaNeige and the glacier ablation module
 }
 
 ## --- How to get started
 
-To learn how to use the functions from the airGR package, it is recommended to follow the five steps described below:
+To learn how to use the functions from the airGRalpine package, it is recommended to follow the five steps described below:
 \enumerate{
   \item refer to the help for \code{\link{RunModel_GR4J}} then run the provided example to assess how to make a simulation;
   \item refer to the help for \code{\link{CreateInputsModel}} to understand how the inputs of a model are prepared/organised;
@@ -56,7 +58,7 @@ To learn how to use the functions from the airGR package, it is recommended to f
   \item refer to the help for \code{\link{Calibration_Michel}}, run the provided example and then refer to the help for \code{\link{CreateCalibOptions}} to understand how a model calibration is prepared/made.
 }
 
-To get started with the package, you can refer to the 'get_started' vignette (\code{vignette("V01_get_started", package = "airGR")}). To know how to use the models on a semi-distributed way, you can refer to the 'sd_model' vignette (\code{vignette("V05_sd_model", package = "airGR")}). For more information, please visit the \href{https://hydrogr.github.io/airGR/}{airGR website}. \cr\cr
+To get started with the package, you can refer to the 'get_started' vignette (\code{vignette("V01_get_started", package = "airGRalpine")}). To know how to use the models on a semi-distributed way, you can refer to the 'sd_model' vignette (\code{vignette("V05_sd_model", package = "airGRalpine")}). This package is a fork of the original \href{https://hydrogr.github.io/airGR/}{airGR package}, extended with a glacier ablation module. \cr\cr
 
 
 ## --- References

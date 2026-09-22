@@ -82,7 +82,7 @@ Nota: the \code{StateEnd} objects from the outputs of \code{RunModel*} functions
 
 
 \examples{
-library(airGR)
+library(airGRalpine)
 
 ## loading catchment data
 data(L0123001)

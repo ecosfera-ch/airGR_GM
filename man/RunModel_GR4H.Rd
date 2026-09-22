@@ -73,7 +73,7 @@ See \code{\link{RunModel_GR4J}} to look at the diagram of the hydrological model
 
 
 \examples{
-library(airGR)
+library(airGRalpine)
 
 ## load of catchment data
 data(L0123003)

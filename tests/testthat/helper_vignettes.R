@@ -91,7 +91,7 @@ RunVignetteChunks <- function(vignette,
                  chunkIgnore = getChunkIgnore(".vignettechunkignore"))
   } else {
     # R CMD check context in package environnement
-    RunRmdChunks(system.file(sprintf("doc/%s.Rmd", vignette), package = "airGR"),
+    RunRmdChunks(system.file(sprintf("doc/%s.Rmd", vignette), package = "airGRalpine"),
                  tmpFolder = tmpFolder,
                  force.eval =force.eval,
                  chunkIgnore = getChunkIgnore(".vignettechunkignore"))

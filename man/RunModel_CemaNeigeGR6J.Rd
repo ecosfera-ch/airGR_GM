@@ -94,7 +94,7 @@ See \code{\link{RunModel_GR6J}} to look at the diagram of the hydrological model
 
 
 \examples{
-library(airGR)
+library(airGRalpine)
 
 ## loading catchment data
 data(L0123002)

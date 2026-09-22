@@ -1,4 +1,4 @@
 library(testthat)
-library(airGR)
+library(airGRalpine)
 
-test_check("airGR")
+test_check("airGRalpine")

@@ -19,7 +19,7 @@
 
 ## table of feature models
 .FeatModels <- function() {
-  path <- system.file("modelsFeatures/FeatModelsGR.csv", package = "airGR")
+  path <- system.file("modelsFeatures/FeatModelsGR.csv", package = "airGRalpine")
   read.table(path, header = TRUE, sep = ";", stringsAsFactors = FALSE)
 }
 

@@ -101,7 +101,7 @@ If there is no GradP or GradT or Zthreshold then the default values are used imp
 }
 
 \examples{
-library(airGR)
+library(airGRalpine)
 
 ## loading catchment data
 data(L0123001)

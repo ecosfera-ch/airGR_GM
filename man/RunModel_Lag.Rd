@@ -48,7 +48,7 @@ The list value contains an extra item named \code{QsimDown} which is a copy of t
 ## ---- preparation of the InputsModel object
 
 ## loading package and catchment data
-library(airGR)
+library(airGRalpine)
 data(L0123001)
 
 ## ---- simulation of the hydrological catchment with GR4J

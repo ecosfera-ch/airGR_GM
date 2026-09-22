@@ -49,7 +49,7 @@ Calibration(InputsModel, RunOptions, InputsCrit, CalibOptions,
 
 
 \examples{
-library(airGR)
+library(airGRalpine)
 
 ## loading catchment data
 data(L0123001)

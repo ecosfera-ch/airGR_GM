@@ -56,7 +56,7 @@ with the following sub-criteria:
 
 
 \examples{
-library(airGR)
+library(airGRalpine)
 
 ## loading catchment data
 data(L0123001)

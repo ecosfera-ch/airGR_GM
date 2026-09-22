@@ -1,4 +1,4 @@
-library(airGR)
+library(airGRalpine)
 source("tests/testthat/helper_scheduled_Calibration.R")
 
 

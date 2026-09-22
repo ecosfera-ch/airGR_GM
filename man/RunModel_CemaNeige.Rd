@@ -63,7 +63,7 @@ For further details on the argument structures and initialisation options, see \
 
 
 \examples{
-library(airGR)
+library(airGRalpine)
 
 ## load of catchment data
 data(L0123002)
