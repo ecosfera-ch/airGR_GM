@@ -164,6 +164,13 @@ CreateCalibOptions <- function(FUN_MOD,
                          +5.58, -0.85, +4.74, -9.47, -9.14, +6.90,
                          +6.01, -0.50, +5.14, -8.87, +4.10, +7.21), ncol = 6, byrow = TRUE)
     }
+    # Add parameter for CemaNeigeGR4H_Glacier: First is degree day melt factor
+    # For Tm and SWE_th: 25% and 50% and 75% quantiles from -9.99 to 9.99 (transfered)
+    if ("CemaNeigeGR4H_Glacier" == FeatFUN_MOD$CodeMod) {
+      ParamT <- matrix(c(+5.12, -1.18, +4.34, -9.69, -9.96, +6.63, +6.63, -9.96, +6.63,
+                         +5.58, -0.85, +4.74, -9.47, -9.14, +6.90, +6.90, -9.14, +6.90,
+                         +6.01, -0.50, +5.14, -8.87, +4.10, +7.21, +7.21, +4.10, +7.21), ncol = 9, byrow = TRUE)
+    }
     if (("CemaNeigeGR5H" == FeatFUN_MOD$CodeMod) & ("interception" %in% ObjectClass)) {
       ParamT <- matrix(c(+3.46, -1.25, +4.04, -9.53, -9.34, -9.96, +6.63,
                          +3.74, -0.41, +4.78, -8.94, -3.33, -9.14, +6.90,
@@ -173,6 +180,18 @@ CreateCalibOptions <- function(FUN_MOD,
       ParamT <- matrix(c(+3.28, -0.39, +4.14, -9.54, -7.49, -9.96, +6.63,
                          +3.62, -0.19, +4.80, -9.00, -6.31, -9.14, +6.90,
                          +4.01, -0.04, +5.43, -7.53, -5.33, +4.10, +7.21), ncol = 7, byrow = TRUE)
+    }
+    # Add parameter for CemaNeigeGR5H_Glacier: First is degree day melt factor
+    # For Tm and SWE_th: 25% and 50% and 75% quantiles from -9.99 to 9.99 (transfered)
+    if (("CemaNeigeGR5H_Glacier" == FeatFUN_MOD$CodeMod) & ("interception" %in% ObjectClass)) {
+      ParamT <- matrix(c(+3.46, -1.25, +4.04, -9.53, -9.34, -9.96, +6.63, +6.63, -9.96, +6.63,
+                         +3.74, -0.41, +4.78, -8.94, -3.33, -9.14, +6.90, +6.90, -9.14, +6.90,
+                         +4.29, +0.16, +5.39, -7.39, +3.33, +4.10, +7.21, +7.21, +4.10, +7.21), ncol = 10, byrow = TRUE)
+    }
+    if (("CemaNeigeGR5H_Glacier" == FeatFUN_MOD$CodeMod) & !("interception" %in% ObjectClass)) {
+      ParamT <- matrix(c(+3.28, -0.39, +4.14, -9.54, -7.49, -9.96, +6.63, +6.63, -9.96, +6.63,
+                         +3.62, -0.19, +4.80, -9.00, -6.31, -9.14, +6.90, +6.90, -9.14, +6.90,
+                         +4.01, -0.04, +5.43, -7.53, -5.33, +4.10, +7.21, +7.21, +4.10, +7.21), ncol = 10, byrow = TRUE)
     }
     if ("CemaNeigeGR4J" == FeatFUN_MOD$CodeMod) {
       ParamT <- matrix(c(+5.13, -1.60, +3.03, -9.05, -9.96, +6.63,

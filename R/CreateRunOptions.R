@@ -50,7 +50,7 @@ CreateRunOptions <- function(FUN_MOD, InputsModel,
   if (!"CemaNeige" %in% ObjectClass & "hysteresis" %in% ObjectClass) {
     stop("'IsHyst' cannot be TRUE for the chosen 'FUN_MOD'")
   }
-  if (!(identical(FUN_MOD, RunModel_GR5H) | identical(FUN_MOD, RunModel_CemaNeigeGR5H)) & "interception" %in% ObjectClass) {
+  if (!(identical(FUN_MOD, RunModel_GR5H) | identical(FUN_MOD, RunModel_CemaNeigeGR5H) | identical(FUN_MOD, RunModel_CemaNeigeGR5H_Glacier)) & "interception" %in% ObjectClass) {
     stop("'IMax' cannot be set for the chosen 'FUN_MOD'")
   }
 
@@ -179,7 +179,7 @@ CreateRunOptions <- function(FUN_MOD, InputsModel,
           IniResLevels[3L] <- NA
         }
       }
-      if (identical(FUN_MOD, RunModel_GR5H) | identical(FUN_MOD, RunModel_CemaNeigeGR5H)) {
+      if (identical(FUN_MOD, RunModel_GR5H) | identical(FUN_MOD, RunModel_CemaNeigeGR5H) | identical(FUN_MOD, RunModel_CemaNeigeGR5H_Glacier)) {
         if (IsIntStore & is.na(IniResLevels[4L])) {
           stop("the fourth value of 'IniResLevels' cannot be a missing value for the chosen 'FUN_MOD' (GR5H with an interception store)")
         }
@@ -199,7 +199,7 @@ CreateRunOptions <- function(FUN_MOD, InputsModel,
       if (identical(FUN_MOD, RunModel_GR6J) | identical(FUN_MOD, RunModel_CemaNeigeGR6J) | identical(FUN_MOD, RunModel_CemaNeigeGR6J_Glacier)) {
         IniResLevels <- as.double(c(0.3, 0.5, 0, NA))
       }
-      if ((identical(FUN_MOD, RunModel_GR5H) | identical(FUN_MOD, RunModel_CemaNeigeGR5H)) & IsIntStore) {
+      if ((identical(FUN_MOD, RunModel_GR5H) | identical(FUN_MOD, RunModel_CemaNeigeGR5H) | identical(FUN_MOD, RunModel_CemaNeigeGR5H_Glacier)) & IsIntStore) {
         IniResLevels <- as.double(c(0.3, 0.5, NA, 0))
       }
       # if (!identical(FUN_MOD, RunModel_GR6J) & !identical(FUN_MOD, RunModel_CemaNeigeGR6J) &
@@ -252,21 +252,22 @@ CreateRunOptions <- function(FUN_MOD, InputsModel,
       stop(paste0("'IniStates' is not available for the chosen 'FUN_MOD'"))
     }
     if ((identical(FUN_MOD, RunModel_GR5J) | identical(FUN_MOD, RunModel_CemaNeigeGR5J) |
-         identical(FUN_MOD, RunModel_GR5H) | identical(FUN_MOD, RunModel_CemaNeigeGR5H)) &
+         identical(FUN_MOD, RunModel_GR5H) | identical(FUN_MOD, RunModel_CemaNeigeGR5H) |
+         identical(FUN_MOD, RunModel_CemaNeigeGR5H_Glacier)) &
         !all(is.na(IniStates$UH$UH1))) { ## GR5J or GR5H
       stop(paste0("non convenient 'IniStates' for the chosen 'FUN_MOD'.' In 'IniStates', 'UH1' has to be a vector of NA for GR5J"))
     }
     if ((identical(FUN_MOD, RunModel_GR6J) | identical(FUN_MOD, RunModel_CemaNeigeGR6J)) & is.na(IniStates$Store$Exp)) { ## GR6J
       stop(paste0("non convenient 'IniStates' for the chosen 'FUN_MOD'.' GR6J needs an exponential store value in 'IniStates'"))
     }
-    if ((identical(FUN_MOD, RunModel_GR5H) | identical(FUN_MOD, RunModel_CemaNeigeGR5H)) & is.na(IniStates$Store$Int)) { ## GR5H interception
+    if ((identical(FUN_MOD, RunModel_GR5H) | identical(FUN_MOD, RunModel_CemaNeigeGR5H) | identical(FUN_MOD, RunModel_CemaNeigeGR5H_Glacier)) & is.na(IniStates$Store$Int)) { ## GR5H interception
 
       stop(paste0("non convenient 'IniStates' for the chosen 'FUN_MOD'.' GR5H (with interception store) needs an interception store value in 'IniStates'"))
     }
     if (!(identical(FUN_MOD, RunModel_GR6J) | identical(FUN_MOD, RunModel_CemaNeigeGR6J)) & !is.na(IniStates$Store$Exp)) { ## except GR6J
       stop(paste0("non convenient 'IniStates' for the chosen 'FUN_MOD'.' No exponential store value needed in 'IniStates'"))
     }
-    if (!(identical(FUN_MOD, RunModel_GR5H) | identical(FUN_MOD, RunModel_CemaNeigeGR5H)) & !is.na(IniStates$Store$Int)) { ## except GR5H interception
+    if (!(identical(FUN_MOD, RunModel_GR5H) | identical(FUN_MOD, RunModel_CemaNeigeGR5H) | identical(FUN_MOD, RunModel_CemaNeigeGR5H_Glacier)) & !is.na(IniStates$Store$Int)) { ## except GR5H interception
       stop(paste0("non convenient 'IniStates' for the chosen 'FUN_MOD'.' No interception store value needed in 'IniStates'"))
     }
     # if (length(na.omit(unlist(IniStates))) != NState) {
@@ -482,7 +483,8 @@ CreateRunOptions <- function(FUN_MOD, InputsModel,
   class(RunOptions) <- c("RunOptions", ObjectClass)
   
   # for the glaicer module: add relative glacier area to the RunOptions
-  if (FeatFUN_MOD$NameFunMod %in% c("RunModel_CemaNeigeGR6J_Glacier", "RunModel_CemaNeigeGR4J_Glacier")){
+  if (FeatFUN_MOD$NameFunMod %in% c("RunModel_CemaNeigeGR6J_Glacier", "RunModel_CemaNeigeGR4J_Glacier",
+                                    "RunModel_CemaNeigeGR4H_Glacier", "RunModel_CemaNeigeGR5H_Glacier")){
     if (is.null(RelIce)) {
       stop("RelIce must be defined for the glacier model" )
     }

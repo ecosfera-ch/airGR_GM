@@ -29,7 +29,7 @@ CreateRunOptions(FUN_MOD, InputsModel,
 
 \item{InputsModel}{[object of class \emph{InputsModel}] see \code{\link{CreateInputsModel}} for details}
 
-\item{RelIce}{[numeric] vector of relative ice area in the elevation band. Mandatory in \code{\link{RunModel_CemaNeigeGR4J_Glacier}}, \code{\link{RunModel_CemaNeigeGR6J_Glacier}}. See details}
+\item{RelIce}{[numeric] vector of relative ice area in the elevation band. Mandatory in \code{\link{RunModel_CemaNeigeGR4J_Glacier}}, \code{\link{RunModel_CemaNeigeGR6J_Glacier}}, \code{\link{RunModel_CemaNeigeGR4H_Glacier}}, \code{\link{RunModel_CemaNeigeGR5H_Glacier}}. See details}
 
 \item{IndPeriod_WarmUp}{(optional) [numeric] index of period to be used for the model warm-up [-]. See details}
 
@@ -76,7 +76,7 @@ CreateRunOptions(FUN_MOD, InputsModel,
 Users wanting to use \code{FUN_MOD} functions that are not included in
 the package must create their own \code{RunOptions} object accordingly.
 
-## --- RelIce (madatory for the glacier module \code{\link{RunModel_CemaNeigeGR4J_Glacier}}, \code{\link{RunModel_CemaNeigeGR6J_Glacier}})
+## --- RelIce (madatory for the glacier module \code{\link{RunModel_CemaNeigeGR4J_Glacier}}, \code{\link{RunModel_CemaNeigeGR6J_Glacier}}, \code{\link{RunModel_CemaNeigeGR4H_Glacier}}, \code{\link{RunModel_CemaNeigeGR5H_Glacier}})
 
 
 This term describes how much of an elevation band is covered by ice relative to the total area of the basin. 

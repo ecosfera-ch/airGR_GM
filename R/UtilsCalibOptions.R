@@ -24,8 +24,10 @@
     }
   }
   
-  ## Add the glacier module 
-  if(FeatFUN_MOD$CodeMod == "CemaNeigeGR4J_Glacier" | FeatFUN_MOD$CodeMod == "CemaNeigeGR6J_Glacier"){
+  ## Add the glacier module
+  CodeModGlacier <- c("CemaNeigeGR4J_Glacier", "CemaNeigeGR6J_Glacier",
+                      "CemaNeigeGR4H_Glacier", "CemaNeigeGR5H_Glacier")
+  if (FeatFUN_MOD$CodeMod %in% CodeModGlacier) {
     FUN_GLACIER <- TransfoParam_Glacier
   }
   
@@ -75,8 +77,8 @@
     if (!IsHyst & !IsSD) { # AK: TRUE 
       
       
-      if(!(FeatFUN_MOD$CodeMod == "CemaNeigeGR4J_Glacier" | FeatFUN_MOD$CodeMod == "CemaNeigeGR6J_Glacier")) {
-        
+      if (!(FeatFUN_MOD$CodeMod %in% CodeModGlacier)) {
+
         # normal CemaNeigeGR4J/ CemaNeigeGR6J
         FUN_TRANSFO <- function(ParamIn, Direction) {
           Bool <- is.matrix(ParamIn)
@@ -106,13 +108,19 @@
           ParamOut <- NA * ParamIn
           NParam   <- ncol(ParamIn)
 
-          # CemaNeigeGR4J_Glacier
+          # CemaNeigeGR4J_Glacier / CemaNeigeGR4H_Glacier (4 GR + 2 CemaNeige + 3 Glacier)
           if (NParam == 9 ) {
             ParamOut[, (1:4)] <- FUN_GR(ParamIn[, (1:4)], Direction)
             ParamOut[, (5:6)] <- FUN_SNOW(ParamIn[, (5:6)], Direction)
             ParamOut[, (7:9)] <- FUN_GLACIER(ParamIn[, (7:9)], Direction)
-            ## CemaNeigeGR6J_Glacier
-          } 
+          }
+          # CemaNeigeGR5H_Glacier (5 GR + 2 CemaNeige + 3 Glacier)
+          if (NParam == 10) {
+            ParamOut[, (1:5)] <- FUN_GR(ParamIn[, (1:5)], Direction)
+            ParamOut[, (6:7)] <- FUN_SNOW(ParamIn[, (6:7)], Direction)
+            ParamOut[, (8:10)] <- FUN_GLACIER(ParamIn[, (8:10)], Direction)
+          }
+          # CemaNeigeGR6J_Glacier (6 GR + 2 CemaNeige + 3 Glacier)
           if (NParam == 11) {
             ParamOut[, (1:6)] <- FUN_GR(ParamIn[, (1:6)], Direction)
             ParamOut[, (7:8)] <- FUN_SNOW(ParamIn[, (7:8)], Direction)
